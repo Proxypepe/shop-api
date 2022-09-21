@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 from config import settings
+from src.user.router import user_router
 
-app = FastAPI()
+
+app = FastAPI(
+    title='Ecommerce API',
+    version='0.0.1'
+)
+
+app.include_router(user_router)
 
 
 @app.get('/')
@@ -17,5 +24,4 @@ async def say_hello(name: str):
 if __name__ == '__main__':
     import uvicorn
 
-    print(settings.dict())
     uvicorn.run('main:app', debug=True, reload=True)
