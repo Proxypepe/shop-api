@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     redis_port: str = '6379'
     redis_database: str = '0' if app_env == 'TESTING' else '0'
 
+    secret_key: str
+    algorithm: str
+    access_token_expire_minutes: int
+
     class Config:
         env_file = ".env"
 

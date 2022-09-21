@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from config import settings
 from src.user.router import user_router
 from src.products.router import router as product_router
+from src.orders.router import router as orders_router
+from src.cart.router import router as cart_router
+from src.auth.router import router as auth_router
 
 app = FastAPI(
     title='Ecommerce API',
@@ -10,6 +13,9 @@ app = FastAPI(
 
 app.include_router(user_router)
 app.include_router(product_router)
+app.include_router(orders_router)
+app.include_router(cart_router)
+app.include_router(auth_router)
 
 
 @app.get('/')
