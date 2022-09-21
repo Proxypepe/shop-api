@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from config import settings
 from src.user.router import user_router
-
+from src.products.router import router as product_router
 
 app = FastAPI(
     title='Ecommerce API',
@@ -9,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(user_router)
+app.include_router(product_router)
 
 
 @app.get('/')
