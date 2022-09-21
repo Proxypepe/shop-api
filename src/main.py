@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from config import settings
 
 app = FastAPI()
 
@@ -17,4 +17,5 @@ async def say_hello(name: str):
 if __name__ == '__main__':
     import uvicorn
 
+    print(settings.dict())
     uvicorn.run('main:app', debug=True, reload=True)
