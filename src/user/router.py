@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 
 from src import db
+from src.auth.jwt import get_current_user
 from . import schemas
 from . import services
 from . import validator
@@ -29,6 +30,7 @@ async def create_user_registration(request: schemas.User, database: Session = De
 @user_router.get('/', status_code=status.HTTP_200_OK, response_model=list[schemas.DisplayUser])
 async def get_all_users(
         database: Session = Depends(db.get_db),
+        current_user: schemas.User = Depends(get_current_user)
 ):
     return await services.all_users(database)
 
@@ -37,6 +39,7 @@ async def get_all_users(
 async def get_user_by_id(
         user_id: int,
         database: Session = Depends(db.get_db),
+        current_user: schemas.User = Depends(get_current_user)
 ):
     return await services.get_user_by_id(user_id, database)
 
@@ -45,5 +48,6 @@ async def get_user_by_id(
 async def delete_user_by_id(
         user_id: int,
         database: Session = Depends(db.get_db),
+        current_user: schemas.User = Depends(get_current_user)
 ):
     return await services.delete_user_by_id(user_id, database)

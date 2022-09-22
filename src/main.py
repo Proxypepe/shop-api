@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from config import settings
+from src.config import settings
 from src.user.router import user_router
 from src.products.router import router as product_router
 from src.orders.router import router as orders_router
