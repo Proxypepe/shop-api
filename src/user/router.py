@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status, Response, HTTPException
 from sqlalchemy.orm import Session
-
+from typing import List
 
 from src import db
 from src.auth.jwt import get_current_user
@@ -27,7 +27,7 @@ async def create_user_registration(request: schemas.User, database: Session = De
     return new_user
 
 
-@user_router.get('/', status_code=status.HTTP_200_OK, response_model=list[schemas.DisplayUser])
+@user_router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.DisplayUser])
 async def get_all_users(
         database: Session = Depends(db.get_db),
         current_user: schemas.User = Depends(get_current_user)

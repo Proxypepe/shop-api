@@ -6,15 +6,15 @@ from pydantic import BaseSettings, Field
 
 
 class GlobalSettings(BaseSettings):
-    app_env: str = 'development'
+    app_env: str = Field('development', env='APP_ENV')
 
-    database_username: str = 'postgres'
-    database_password: str = 'postgres123'
-    database_host: str = 'localhost'
-    database_port: str = '5432'
-    database_name: str = 'ecommerce_database'
+    database_username: str = Field('postgres', env='DATABASE_USERNAME')
+    database_password: str = Field('postgres123', env='DATABASE_PASSWORD')
+    database_host: str = Field('localhost', env='DATABASE_HOST')
+    database_port: str = Field('5432', env='DATABASE_PORT')
+    database_name: str = Field('ecommerce_database', env='DATABASE_NAME')
 
-    test_database_name: str = 'test_database'
+    test_database_name: str = Field('test_database', env='TEST_DATABASE_NAME')
 
     redis_host: str = 'localhost'
     redis_port: str = '6379'
@@ -62,3 +62,4 @@ def get_settings():
 
 
 settings = get_settings()
+

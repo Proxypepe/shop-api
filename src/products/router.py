@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status, Response, HTTPException
 from sqlalchemy.orm import Session
-
+from typing import List
 
 from src import db
 from . import schemas
@@ -19,7 +19,7 @@ async def create_category(request: schemas.Category, database: Session = Depends
     return new_category
 
 
-@router.get('/category', status_code=status.HTTP_200_OK, response_model=list[schemas.ListCategory])
+@router.get('/category', status_code=status.HTTP_200_OK, response_model=List[schemas.ListCategory])
 async def get_all_categories(database: Session = Depends(db.get_db)):
     return await services.get_all_categories(database)
 
@@ -47,6 +47,6 @@ async def create_product(request: schemas.Product, database: Session = Depends(d
     return product
 
 
-@router.get('/', status_code=status.HTTP_200_OK, response_model=list[schemas.ProductListing])
+@router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.ProductListing])
 async def get_all_products(database: Session = Depends(db.get_db)):
     return await services.get_all_products(database)
