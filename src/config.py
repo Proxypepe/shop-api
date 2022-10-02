@@ -1,4 +1,5 @@
 from typing import Optional
+import os
 
 from functools import lru_cache
 
@@ -8,11 +9,11 @@ from pydantic import BaseSettings, Field
 class GlobalSettings(BaseSettings):
     app_env: str = Field('development', env='APP_ENV')
 
-    database_username: str = Field('postgres', env='DATABASE_USERNAME')
-    database_password: str = Field('postgres123', env='DATABASE_PASSWORD')
-    database_host: str = Field('localhost', env='DATABASE_HOST')
-    database_port: str = Field('5432', env='DATABASE_PORT')
-    database_name: str = Field('ecommerce_database', env='DATABASE_NAME')
+    database_username: str = os.getenv('DATABASE_USERNAME', 'postgres')
+    database_password: str = os.getenv('DATABASE_PASSWORD', 'postgres123')
+    database_host: str = os.getenv('DATABASE_HOST', 'localhost')
+    database_port: str = os.getenv('DATABASE_PORT', '5432')
+    database_name: str = os.getenv('DATABASE_NAME', 'ecommerce_database')
 
     test_database_name: str = Field('test_database', env='TEST_DATABASE_NAME')
 
@@ -20,9 +21,9 @@ class GlobalSettings(BaseSettings):
     redis_port: str = '6379'
     redis_database: str = '0' if app_env == 'TESTING' else '0'
 
-    secret_key: str = Field('', env='SECRET_KEY')
-    algorithm: str = Field('', env='ALGORITHM')
-    access_token_expire_minutes: int = Field(0, env='ACCESS_TOKEN_EXPIRE_MINUTES')
+    secret_key: str = Field('09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7', env='SECRET_KEY')
+    algorithm: str = Field('HS256', env='ALGORITHM')
+    access_token_expire_minutes: int = Field(30, env='ACCESS_TOKEN_EXPIRE_MINUTES')
 
     class Config:
         env_file = ".env"
